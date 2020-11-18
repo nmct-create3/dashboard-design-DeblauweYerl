@@ -8,12 +8,21 @@
 
 :root {
     /* colors */
-    --color-alpha-light: MEDIUMSLATEBLUE;
-    --color-alpha: SLATEBLUE;
+    --global-color-alpha-light: #A3A0FB80;
+    --global-color-alpha: #A3A0FB;
 
-    --color-neutral-light: LIGHTSLATEGRAY;
-    --color-neutral: SLATEGRAY;
-    --color-neutral-dark: DARKSLATEGRAY;
+    --global-color-beta: #3B86FF;
+
+    --global-color-neutral-xxxxx-light: #FFF;
+    --global-color-neutral-xxxx-light: #F0F0F7;
+    --global-color-neutral-xxx-light: #EBEBF2;
+    --global-color-neutral-xx-light: #D7DAE2;
+    --global-color-neutral-x-light: #BCBCCB;
+    --global-color-neutral-light: #A5A4BF;
+    --global-color-neutral: #808495;
+    --global-color-neutral-dark: #4D4F5C;
+    --global-color-neutral-x-dark: #43425D;
+    --global-color-neutral-xx-dark: #3B3B53;
 
     /* Shadows */
 
@@ -21,6 +30,14 @@
 
     /* transitions */
     --transition-alpha: .1s;
+
+    /* Whitespace */
+    --global-baseline: 5px;
+    --global-whitespace-xs: calc(var(--global-baseline) * 2);
+    --global-whitespace-sm: calc(var(--global-baseline) * 3);
+    --global-whitespace-md: calc(var(--global-baseline) * 4);
+    --global-whitespace-lg: calc(var(--global-baseline) * 5);
+    --global-whitespace-xl: calc(var(--global-baseline) * 6);
 }
 
 /*------------------------------------*\
@@ -36,12 +53,12 @@
 html {
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
-    color: var(--color-neutral-dark);
+    font-family: "source-sans-pro", Helvetica, arial, sans-serif;
+    color: var(--global-color-neutral-dark);
+    background-color: var(--global-color-neutral-xxxx-light);
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: white;
 }
 
 *,
@@ -98,20 +115,21 @@ h3 {
 
 h1 {
     font-size: 36px;
-    line-height: 48px;
-    margin: 0 0 24px;
+    line-height: calc(var(--global-baseline) * 4);
+    margin: 0 0 var(--global-whitespace-md);
 }
 
 h2 {
-    font-size: 32px;
-    line-height: 40px;
-    margin: 0 0 24px;
+    font-size: 28px;
+    font-weight: normal;
+    line-height: calc(var(--global-baseline) * 8);
+    margin: 0 0 var(--global-whitespace-lg);
 }
 
 h3 {
     font-size: 26px;
-    line-height: 32px;
-    margin: 0 0 24px;
+    line-height: calc(var(--global-baseline) * 6);
+    margin: 0 0 var(--global-whitespace-md);
 }
 
 h4,
@@ -119,8 +137,8 @@ h5,
 h6 {
     font-size: 16px;
     font-weight: 600;
-    line-height: 24px;
-    margin: 0 0 24px;
+    line-height: calc(var(--global-baseline) * 5);
+    margin: 0 0 var(--global-whitespace-md);
 }
 
 p,
@@ -130,7 +148,7 @@ dl,
 table,
 address,
 figure {
-    margin: 0 0 24px;
+    margin: 0 0 var(--global-whitespace-md);
 }
 
 ul,
@@ -294,6 +312,81 @@ input::placeholder {
     ---
     Website main logo
 */
+
+.c-logo {
+    font-size: 15px;
+    color: var(--global-color-neutral-xxxxx-light);
+    letter-spacing: 3px;
+    margin: 0;
+    width: 210px;
+}
+
+/*
+    Component: App
+*/
+
+.c-app {
+    min-height: 100vh;
+}
+
+.c-app__logo {
+    background-color: var(--global-color-neutral-xx-dark);
+    padding: var(--global-whitespace-lg);
+}
+
+.c-app__topbar {
+    background-color: white;
+    box-shadow: 0 2px 6px #0000000a;
+}
+
+.c-app__sidebar {
+    background-color: var(--global-color-neutral-x-dark);
+}
+
+@media (min-width: 992px) {
+    .c-app {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        grid-template-rows: auto 1fr;
+    }
+}
+
+
+/*
+    Component: nav
+    ---
+    Website main navigation
+*/
+
+.c-main-nav {
+    padding: 0;
+}
+
+.c-main-nav__item {
+    list-style-type: none;
+    padding: var(--global-whitespace-sm) 0 var(--global-whitespace-sm) var(--global-whitespace-sm);
+    border-left: 5px solid var(--global-color-neutral-x-dark);
+}
+
+.c-main-nav__item:hover {
+    border-color: var(--global-color-alpha);
+}
+
+.c-main-nav__link {
+    text-decoration: none;
+    color: var(--global-color-neutral-xxxxx-light);
+}
+
+.c-main-nav__link:hover {
+    color: var(--global-color-neutral-xxxxx-light);
+}
+
+.c-main-nav__icon {
+    display: inline;
+    width: 15px;
+    height: 15px;
+    fill: var(--global-color-neutral-x-light)
+}
 
 /*------------------------------------*\
 #UTILITIES
