@@ -29,7 +29,8 @@
     /* border radius */
 
     /* transitions */
-    --transition-alpha: .1s;
+    --transition-alpha: .05s;
+    --transition-beta: 1s;
 
     /* Whitespace */
     --global-baseline: 5px;
@@ -38,6 +39,9 @@
     --global-whitespace-md: calc(var(--global-baseline) * 4);
     --global-whitespace-lg: calc(var(--global-baseline) * 5);
     --global-whitespace-xl: calc(var(--global-baseline) * 6);
+
+    /* topbar height */
+    --c-app__topbar-height: calc(var(--global-baseline) * 14);
 }
 
 /*------------------------------------*\
@@ -230,7 +234,7 @@ input::placeholder {
 
 .o-row {
     position: relative;
-    padding: 24px 24px 0;
+    padding: var(--global-whitespace-lg) var(--global-whitespace-lg) 0;
 }
 
 /*
@@ -242,7 +246,7 @@ input::placeholder {
 .o-container {
     margin-left: auto;
     margin-right: auto;
-    max-width: 79.5em; /* 79.5 * 16px = 1272 */
+    max-width: 74.7em; /* 74.7 * 16px = 1195 */
     width: 100%;
 }
 
@@ -303,6 +307,33 @@ input::placeholder {
     border: 0;
 }
 
+
+/*
+    Object: list
+    ---
+    reset list style
+*/
+
+.o-list {
+    list-style-type: none;
+}
+
+
+/*
+    Object: link
+    ---
+    reset link style
+*/
+
+.o-link {
+    text-decoration: none;
+}
+
+.o-link:hover,
+.o-link:visited {
+    color: var(--global-color-neutral-xxxxx-light);
+}
+
 /*------------------------------------*\
 #COMPONENTS
 \*------------------------------------*/
@@ -337,10 +368,18 @@ input::placeholder {
 .c-app__topbar {
     background-color: white;
     box-shadow: 0 2px 6px #0000000a;
+    height: var(--c-app__topbar-height);
 }
 
 .c-app__sidebar {
     background-color: var(--global-color-neutral-x-dark);
+}
+
+.c-app__sidebar,
+.c-app__main {
+    height: calc(100vh - var(--c-app__topbar-height));
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 @media (min-width: 992px) {
@@ -363,30 +402,77 @@ input::placeholder {
 }
 
 .c-main-nav__item {
-    list-style-type: none;
-    padding: var(--global-whitespace-sm) 0 var(--global-whitespace-sm) var(--global-whitespace-sm);
+    margin-top: var(--global-baseline);
     border-left: 5px solid var(--global-color-neutral-x-dark);
+    transition: border-color var(--transition-beta), background-color var(--transition-alpha);
 }
 
-.c-main-nav__item:hover {
+.c-main-nav__item:hover,
+.c-main-nav__item:active {
     border-color: var(--global-color-alpha);
+    background-color: var(--global-color-neutral-xx-dark);
+    transition-duration: var(--transition-alpha);
 }
 
 .c-main-nav__link {
-    text-decoration: none;
+    padding: var(--global-whitespace-sm) 0 var(--global-whitespace-sm) var(--global-whitespace-sm);
+    line-height: 20px;
     color: var(--global-color-neutral-xxxxx-light);
-}
-
-.c-main-nav__link:hover {
-    color: var(--global-color-neutral-xxxxx-light);
+    display: flex;
+    align-items: center;
 }
 
 .c-main-nav__icon {
-    display: inline;
-    width: 15px;
-    height: 15px;
-    fill: var(--global-color-neutral-x-light)
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    fill: var(--global-color-neutral-x-light);
+    margin-right: var(--global-baseline);
 }
+
+
+/*
+    Component: dashboard
+    ---
+    Website main content
+*/
+
+.c-dashboard {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: var(--global-whitespace-xl);
+}
+
+.c-dashboard__item {
+    background-color: var(--global-color-neutral-xxxxx-light);
+    padding: var(--global-whitespace-md);
+    grid-column: span 12;
+}
+
+
+/*
+    Component: card
+    ---
+    Dashboard item content
+*/
+
+.c-card {
+
+}
+
+.c-card__header {
+
+}
+
+.c-card__title {
+    font-size: calc(var(--global-baseline) * 4);
+    line-height: var(--global-whitespace-lg);
+}
+
+.c-card__body {
+
+}
+
 
 /*------------------------------------*\
 #UTILITIES
@@ -474,12 +560,13 @@ input::placeholder {
 */
 
 .u-align-text-center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .u-align-center {
-    margin: 0 auto;
+    margin: 0 auto !important;
 }
+
 
 /*
     Utilities: text
@@ -487,7 +574,45 @@ input::placeholder {
 */
 
 .u-text-sm {
-    font-size: 14px;
+    font-size: 14px !important;
+}
+
+
+/*
+    Utilities: grid span
+    Utility classes to determine the span of grid columns and rows
+*/
+
+/* x: horizontal */
+
+@media (min-width: 992px) {
+    .u-x-span-3-bp3 {
+        grid-column: span 3 !important;
+    }
+
+    .u-x-span-4-bp3 {
+        grid-column: span 4 !important;
+    }
+    
+    .u-x-span-6-bp3 {
+        grid-column: span 6 !important;
+    }
+
+    .u-x-span-8-bp3 {
+        grid-column: span 8 !important;
+    }
+
+    .u-x-span-9-bp3 {
+        grid-column: span 9 !important;
+    }
+}
+
+/* y: vertical */
+
+@media (min-width: 992px) {
+    .u-y-span-2-bp3 {
+        grid-row: span 2 !important;
+    }
 }
 
 /*------------------------------------*\
